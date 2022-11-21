@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/edittext"
-        android:layout_width="match_parent"
+        android:layout_width="591dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_save"
-        android:layout_marginTop="3dp"
-        android:hint="Enter New Task"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="11dp"
+        android:layout_toStartOf="@+id/button_save"
+        android:fillViewport="true"
+        android:hint="Nouvelle tâche"
         android:paddingStart="7dp"
-        android:paddingEnd="7dp" />
+        android:paddingEnd="7dp"
+        tools:layout_conversion_absoluteHeight="45dp"
+        tools:layout_conversion_absoluteWidth="496dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="3dp" />
 
     <Button
         android:id="@+id/button_save"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="3dp"
-        android:text="Save"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="6dp"
+        android:fillViewport="true"
+        android:text="Ajouter"
         android:textColor="@color/colorWhite"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        tools:layout_conversion_absoluteHeight="48dp"
+        tools:layout_conversion_absoluteWidth="98dp"
+        tools:layout_editor_absoluteX="496dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 
 </RelativeLayout>
