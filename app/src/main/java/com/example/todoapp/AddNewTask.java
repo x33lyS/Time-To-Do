@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,12 @@ import androidx.annotation.Nullable;
 import com.example.todoapp.Model.ToDoModel;
 import com.example.todoapp.Utils.DataBaseHelper;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class AddNewTask extends BottomSheetDialogFragment {
 
@@ -44,7 +51,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        final int[] count = {1};
         mEditText = view.findViewById(R.id.edittext);
         mSaveButton = view.findViewById(R.id.button_save);
 
@@ -85,6 +92,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
             }
         });
+
+
         final boolean finalIsUpdate = isUpdate;
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +109,35 @@ public class AddNewTask extends BottomSheetDialogFragment {
                    myDb.insertTask(item);
                }
                dismiss();
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
+                count[0]++;
+                DatabaseReference myRef = database.getReference("Task"+ count[0]);
+                myRef.setValue(mEditText.getText().toString());
+
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
+                        String value = dataSnapshot.getValue(String.class);
+                        Log.d(TAG, "Value is: " + value);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+                });
 
             }
         });
+
+
+
+
+
+
     }
 
     @Override

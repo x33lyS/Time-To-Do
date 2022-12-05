@@ -9,11 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import com.example.todoapp.Adapter.ToDoAdapter;
 import com.example.todoapp.Model.ToDoModel;
 import com.example.todoapp.Utils.DataBaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,9 +26,11 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
 
     private RecyclerView mRecyclerview;
     private FloatingActionButton fab;
+
     private DataBaseHelper myDB;
     private List<ToDoModel> mList;
     private ToDoAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerview.setAdapter(adapter);
-
         mList = myDB.getAllTasks();
         Collections.reverse(mList);
         adapter.setTasks(mList);
