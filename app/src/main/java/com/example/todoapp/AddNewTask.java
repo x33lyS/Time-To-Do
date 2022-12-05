@@ -2,8 +2,10 @@ package com.example.todoapp;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -33,7 +35,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
         return new AddNewTask();
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,7 +62,12 @@ public class AddNewTask extends BottomSheetDialogFragment {
             if (task.length() > 0 ){
                 mSaveButton.setEnabled(false);
             }
-
+        }
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String name = prefs.getString("task", "");
+        if (name != null) {
+            mEditText = view.findViewById(R.id.edittext);
+            mEditText.setText(name);
         }
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -78,6 +84,10 @@ public class AddNewTask extends BottomSheetDialogFragment {
                    mSaveButton.setEnabled(true);
                    mSaveButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                }
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("task", "" + mEditText.getText());
+                editor.apply();
             }
 
             @Override
