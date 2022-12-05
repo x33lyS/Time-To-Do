@@ -109,7 +109,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                String text = mEditText.getText().toString();
-
                if (finalIsUpdate){
                    myDb.updateTask(bundle.getInt("id") , text);
                }else{
@@ -119,6 +118,9 @@ public class AddNewTask extends BottomSheetDialogFragment {
                    myDb.insertTask(item);
                }
                dismiss();
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.remove("task").apply();
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
                 count[0]++;
                 DatabaseReference myRef = database.getReference("Task"+ count[0]);
