@@ -1,6 +1,7 @@
 package com.example.todoapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -107,7 +109,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -120,12 +121,14 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
                 if (finalIsUpdate){
                    myDb.updateTask(bundle.getInt("id") , text);
-               }else{
+
+                }else{
                    ToDoModel item = new ToDoModel();
                    item.setTask(text);
                    item.setStatus(0);
                    myDb.insertTask(item);
-               }
+                }
+
                dismiss();
                 Date date = new Date();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
@@ -137,6 +140,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
                 DatabaseReference myRef = database.getReference("Task " + strDate);
                 myRef.setValue(mEditText.getText().toString());
+                Toast.makeText(getContext(),"Ajout appliqué", Toast.LENGTH_SHORT).show();
+
 
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -145,6 +150,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
                         // whenever data at this location is updated.
                         String value = dataSnapshot.getValue(String.class);
                         Log.d(TAG, "Value is: " + value);
+
                     }
 
                     @Override
@@ -156,12 +162,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
             }
         });
-
-
-
-
-
-
     }
 
     @Override
