@@ -28,7 +28,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class AddNewTask extends BottomSheetDialogFragment {
 
@@ -122,11 +127,15 @@ public class AddNewTask extends BottomSheetDialogFragment {
                    myDb.insertTask(item);
                }
                dismiss();
+                Date date = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+                formatter.setTimeZone(TimeZone.getTimeZone("GMT+1"));
+                String strDate = formatter.format(date);
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.remove("task").apply();
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
-                DatabaseReference myRef = database.getReference("Task");
+                DatabaseReference myRef = database.getReference("Task " + strDate);
                 myRef.setValue(mEditText.getText().toString());
 
                 myRef.addValueEventListener(new ValueEventListener() {
