@@ -28,9 +28,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
+
 public class AddNewTask extends BottomSheetDialogFragment {
 
     public static final String TAG = "AddNewTask";
+
 
     //widgets
     private EditText mEditText;
@@ -52,7 +55,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final int[] count = {1};
+
         mEditText = view.findViewById(R.id.edittext);
         mSaveButton = view.findViewById(R.id.button_save);
 
@@ -109,7 +112,8 @@ public class AddNewTask extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                String text = mEditText.getText().toString();
-               if (finalIsUpdate){
+
+                if (finalIsUpdate){
                    myDb.updateTask(bundle.getInt("id") , text);
                }else{
                    ToDoModel item = new ToDoModel();
@@ -122,8 +126,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.remove("task").apply();
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
-                count[0]++;
-                DatabaseReference myRef = database.getReference("Task"+ count[0]);
+                DatabaseReference myRef = database.getReference("Task");
                 myRef.setValue(mEditText.getText().toString());
 
                 myRef.addValueEventListener(new ValueEventListener() {
