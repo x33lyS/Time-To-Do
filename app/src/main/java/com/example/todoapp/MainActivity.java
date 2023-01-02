@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -72,12 +73,14 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         menu.inflate(R.menu.example_menu);
         menu.show();
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item1:
-                        // Faites quelque chose lorsque l'élément de menu 1 est sélectionné
-                        Log.d("TAG", "onMenuItemClick: item1");
+//                        AddNewTask.newInstance().show(getSupportFragmentManager() , AddNewTask.TAG);
+                        Intent intent = new Intent(MainActivity.this, About.class);
+                        startActivity(intent);
                         return true;
                     case R.id.item2:
                         showDeleteAllTasksDialog();
