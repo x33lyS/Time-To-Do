@@ -54,10 +54,12 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     myDB.updateStatus(item.getId() , 1);
-                    Toast.makeText(getContext(),"Tâche effectuée", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Task complete", Toast.LENGTH_SHORT).show();
 
-                }else
-                    myDB.updateStatus(item.getId() , 0);
+                }else {
+                    myDB.updateStatus(item.getId(), 0);
+                    Toast.makeText(getContext(), "Task incomplete", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -94,6 +96,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
         }
         DatabaseReference root = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app").getReference();
         root.setValue(null);
+        Toast.makeText(getContext(),"All tasks deleted", Toast.LENGTH_SHORT).show();
+
     }
 
 

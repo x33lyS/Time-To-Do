@@ -41,7 +41,7 @@ public class RecyclerViewTouchHelper extends ItemTouchHelper.SimpleCallback {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     adapter.deletTask(position);
-                    Toast.makeText(adapter.getContext(), "Tâche supprimée", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(adapter.getContext(), "Task deleted", Toast.LENGTH_SHORT).show();
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

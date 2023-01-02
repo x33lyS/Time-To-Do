@@ -133,18 +133,14 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 }
 
                dismiss();
-                Date date = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-                formatter.setTimeZone(TimeZone.getTimeZone("GMT+1"));
-                String strDate = formatter.format(date);
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.remove("task").apply();
+
                 Calendar calendar = Calendar.getInstance();
                 TimeZone timeZone = TimeZone.getTimeZone("GMT+1");
                 calendar.setTimeZone(timeZone);
                 Date currentDate = calendar.getTime();
-
                 SimpleDateFormat dateFormat = new SimpleDateFormat("/dd-MM-yyyy /HH:mm:ss");
                 dateFormat.setTimeZone(timeZone);
                 String strDate = dateFormat.format(currentDate);
@@ -152,7 +148,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
                 DatabaseReference myRef = database.getReference("Tasks" + strDate + " ");
                 myRef.setValue(mEditText.getText().toString());
-                Toast.makeText(getContext(),"Ajout appliqué", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Task add", Toast.LENGTH_SHORT).show();
 
 
                 myRef.addValueEventListener(new ValueEventListener() {
