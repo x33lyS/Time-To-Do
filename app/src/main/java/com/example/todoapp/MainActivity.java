@@ -2,11 +2,16 @@ package com.example.todoapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +29,7 @@ import com.example.todoapp.Utils.DataBaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         setContentView(R.layout.activity_main);
         mRecyclerview = findViewById(R.id.recyclerview);
         fab = findViewById(R.id.fab);
-        Button menuButton = findViewById(R.id.menuButton);
         myDB = new DataBaseHelper(MainActivity.this);
         mList = new ArrayList<>();
         adapter = new ToDoAdapter(myDB , MainActivity.this);
@@ -64,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerViewTouchHelper(adapter));
         itemTouchHelper.attachToRecyclerView(mRecyclerview);
-
     }
 
     public void openMenu(View view) {
