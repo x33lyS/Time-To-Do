@@ -1,7 +1,9 @@
 package com.example.todoapp.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.AddNewTask;
@@ -17,6 +20,8 @@ import com.example.todoapp.MainActivity;
 import com.example.todoapp.Model.ToDoModel;
 import com.example.todoapp.R;
 import com.example.todoapp.Utils.DataBaseHelper;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -77,6 +82,23 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
         mList.remove(position);
         notifyItemRemoved(position);
     }
+    public void deleteAllTasks() {
+        int i = mList.size() - 1;
+        while (i >= 0) {
+            ToDoModel item = mList.get(i);
+            myDB.deleteTask(item.getId());
+            mList.remove(i);
+            notifyItemRemoved(i);
+            // Décrémentez l'index i à chaque itération
+            i--;
+        }
+        DatabaseReference root = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app").getReference();
+        root.setValue(null);
+    }
+
+
+
+
 
     public void editItem(int position){
         ToDoModel item = mList.get(position);

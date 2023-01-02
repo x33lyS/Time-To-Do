@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         setContentView(R.layout.activity_main);
         mRecyclerview = findViewById(R.id.recyclerview);
         fab = findViewById(R.id.fab);
+        Button menuButton = findViewById(R.id.menuButton);
         myDB = new DataBaseHelper(MainActivity.this);
         mList = new ArrayList<>();
         adapter = new ToDoAdapter(myDB , MainActivity.this);
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerViewTouchHelper(adapter));
         itemTouchHelper.attachToRecyclerView(mRecyclerview);
+
     }
 
     public void openMenu(View view) {
@@ -68,10 +72,58 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         menu.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
         menu.inflate(R.menu.example_menu);
         menu.show();
+        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item1:
+//                        AddNewTask.newInstance().show(getSupportFragmentManager() , AddNewTask.TAG);
+                        Intent intent = new Intent(MainActivity.this, About.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.item2:
+                        showDeleteAllTasksDialog();
+                        return true;
+                    case R.id.menuItem1:
+                        // Faites quelque chose lorsque l'élément de menu 2 est sélectionné
+                        Log.d("TAG", "onMenuItemClick: item2");
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+    }
+    private void showDeleteAllTasksDialog() {
+        // Créez un nouvel AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Définissez le titre et le message du Dialog
+        builder.setTitle("Delete all tasks")
+                .setMessage("Are you sure you want to delete all tasks?")
+                // Ajoutez un bouton "Oui" qui appelle la méthode deleteAllTasks
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapter.deleteAllTasks();
+                    }
+                })
+                // Ajoutez un bouton "Non" qui ferme simplement le Dialog
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Ne faites rien, simplement fermez le Dialog
+                    }
+                });
+        // Créez et affichez le Dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
-    @Override
+
+        @Override
     public boolean onCreateOptionMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.example_menu, menu);

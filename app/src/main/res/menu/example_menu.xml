@@ -4,13 +4,17 @@
     app:ignore="NamespaceTypo"
     >
     <item
-        android:id="@+id/item1"
-        android:title="A propos"
+        android:id="@+id/menuItem1"
+        android:title="Connect"
+        />
+    <item
+        android:id="@+id/item2"
+        android:title="Delete All tasks"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/item2"
-        android:title="Effacer toutes les tâches"
+        android:id="@+id/item1"
+        android:title="Help"
         app:showAsAction="never" />
 
 </menu>
