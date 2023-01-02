@@ -1,7 +1,9 @@
 package com.example.todoapp.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.AddNewTask;
@@ -73,6 +76,21 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
         mList.remove(position);
         notifyItemRemoved(position);
     }
+    public void deleteAllTasks() {
+        int i = mList.size() - 1;
+        while (i >= 0) {
+            ToDoModel item = mList.get(i);
+            myDB.deleteTask(item.getId());
+            mList.remove(i);
+            notifyItemRemoved(i);
+            // Décrémentez l'index i à chaque itération
+            i--;
+        }
+    }
+
+
+
+
 
     public void editItem(int position){
         ToDoModel item = mList.get(position);
