@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         setContentView(R.layout.activity_main);
         mRecyclerview = findViewById(R.id.recyclerview);
         fab = findViewById(R.id.fab);
+        Button menuButton = findViewById(R.id.menuButton);
         myDB = new DataBaseHelper(MainActivity.this);
         mList = new ArrayList<>();
         adapter = new ToDoAdapter(myDB , MainActivity.this);
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerViewTouchHelper(adapter));
         itemTouchHelper.attachToRecyclerView(mRecyclerview);
+
     }
 
     public void openMenu(View view) {
@@ -68,6 +71,24 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         menu.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
         menu.inflate(R.menu.example_menu);
         menu.show();
+        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.item1:
+                        // Faites quelque chose lorsque l'élément de menu 1 est sélectionné
+                        Log.d("TAG", "onMenuItemClick: item1");
+                        return true;
+                    case R.id.item2:
+                        Log.d("TAG", "onMenuItemClick: item2");
+                        // Faites quelque chose lorsque l'élément de menu 2 est sélectionné
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
     }
 
 
