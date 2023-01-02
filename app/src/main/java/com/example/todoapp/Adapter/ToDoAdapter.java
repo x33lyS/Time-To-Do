@@ -19,6 +19,8 @@ import com.example.todoapp.MainActivity;
 import com.example.todoapp.Model.ToDoModel;
 import com.example.todoapp.R;
 import com.example.todoapp.Utils.DataBaseHelper;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -86,6 +88,8 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
             // Décrémentez l'index i à chaque itération
             i--;
         }
+        DatabaseReference root = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app").getReference();
+        root.setValue(null);
     }
 
 
