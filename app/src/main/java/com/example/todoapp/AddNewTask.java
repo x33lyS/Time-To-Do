@@ -1,6 +1,7 @@
 package com.example.todoapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,7 +32,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class AddNewTask extends BottomSheetDialogFragment {
 
@@ -104,7 +111,6 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -117,25 +123,34 @@ public class AddNewTask extends BottomSheetDialogFragment {
 
                 if (finalIsUpdate){
                    myDb.updateTask(bundle.getInt("id") , text);
-               }else{
+
+                }else{
                    ToDoModel item = new ToDoModel();
                    item.setTask(text);
                    item.setStatus(0);
                    myDb.insertTask(item);
-               }
+                }
+
                dismiss();
+                Date date = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+                formatter.setTimeZone(TimeZone.getTimeZone("GMT+1"));
+                String strDate = formatter.format(date);
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.remove("task").apply();
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
-                DatabaseReference myRef = database.getReference("Task");
+                DatabaseReference myRef = database.getReference("Task " + strDate);
                 myRef.setValue(mEditText.getText().toString());
+                Toast.makeText(getContext(),"Ajout appliqué", Toast.LENGTH_SHORT).show();
+
 
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String value = dataSnapshot.getValue(String.class);
                         Log.d(TAG, "Value is: " + value);
+
                     }
                     @Override
                     public void onCancelled(DatabaseError error) {
@@ -151,6 +166,7 @@ public class AddNewTask extends BottomSheetDialogFragment {
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.example_menu, menu);
         return true;
+
     }
 
     @Override

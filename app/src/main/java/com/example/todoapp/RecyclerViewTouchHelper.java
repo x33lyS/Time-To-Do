@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -40,6 +41,7 @@ public class RecyclerViewTouchHelper extends ItemTouchHelper.SimpleCallback {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     adapter.deletTask(position);
+                    Toast.makeText(adapter.getContext(), "Tâche supprimée", Toast.LENGTH_SHORT).show();
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

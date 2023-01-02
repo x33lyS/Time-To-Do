@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,8 +49,11 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     myDB.updateStatus(item.getId() , 1);
+                    Toast.makeText(getContext(),"Tâche effectuée", Toast.LENGTH_SHORT).show();
+
                 }else
                     myDB.updateStatus(item.getId() , 0);
+
             }
         });
     }
@@ -84,7 +88,6 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
         AddNewTask task = new AddNewTask();
         task.setArguments(bundle);
         task.show(activity.getSupportFragmentManager() , task.getTag());
-        
 
     }
 
