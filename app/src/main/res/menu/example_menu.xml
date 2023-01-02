@@ -12,4 +12,5 @@
         android:id="@+id/item2"
         android:title="Effacer toutes les tâches"
         app:showAsAction="never" />
+
 </menu>
