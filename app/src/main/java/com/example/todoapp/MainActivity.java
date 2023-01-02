@@ -6,23 +6,26 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
+import android.widget.PopupMenu;
 
 import com.example.todoapp.Adapter.ToDoAdapter;
 import com.example.todoapp.Model.ToDoModel;
 import com.example.todoapp.Utils.DataBaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnDialogCloseListner {
+public class MainActivity extends AppCompatActivity implements OnDialogCloseListner, PopupMenu.OnMenuItemClickListener {
 
     private RecyclerView mRecyclerview;
     private FloatingActionButton fab;
@@ -32,11 +35,11 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private ToDoAdapter adapter;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mRecyclerview = findViewById(R.id.recyclerview);
         fab = findViewById(R.id.fab);
         myDB = new DataBaseHelper(MainActivity.this);
@@ -58,6 +61,21 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerViewTouchHelper(adapter));
         itemTouchHelper.attachToRecyclerView(mRecyclerview);
+    }
+
+    public void openMenu(View view) {
+        PopupMenu menu = new PopupMenu(this, view);
+        menu.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
+        menu.inflate(R.menu.example_menu);
+        menu.show();
+    }
+
+
+    @Override
+    public boolean onCreateOptionMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.example_menu, menu);
+        return true;
     }
 
     @Override
@@ -84,5 +102,11 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                         dialog.dismiss();
                     }
                 }).show();
+    }
+
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        return false;
     }
 }
