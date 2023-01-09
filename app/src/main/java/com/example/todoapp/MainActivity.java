@@ -3,6 +3,7 @@ package com.example.todoapp;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements OnDialogCloseListner, PopupMenu.OnMenuItemClickListener {
 
@@ -88,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                 AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
+
     public void openMenu(View view) {
         PopupMenu menu = new PopupMenu(this, view);
         menu.setOnMenuItemClickListener((PopupMenu.OnMenuItemClickListener) this);
@@ -106,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                         showDeleteAllTasksDialog();
                         return true;
                     case R.id.menuItem1:
+
+                        Intent Connectintent = new Intent(MainActivity.this, Connect.class);
+                        startActivity(Connectintent);
                         Log.d("TAG", "onMenuItemClick: item2");
                         return true;
                     default:
