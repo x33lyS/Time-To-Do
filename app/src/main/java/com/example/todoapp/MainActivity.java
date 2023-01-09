@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 9);
-        calendar.set(Calendar.MINUTE, 45);
+        calendar.set(Calendar.MINUTE, 49);
         calendar.set(Calendar.SECOND, 0);
 
         Intent intent = new Intent(this, AlarmReceiver.class);
@@ -162,13 +162,13 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     }
     public void display(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Vous allez quitter l'application")
-                .setTitle("Attention !")
-                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+        builder.setMessage("You will exit the app")
+                .setTitle("Warning !")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         System.exit(1);
                     }
-                }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
