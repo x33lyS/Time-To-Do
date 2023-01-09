@@ -2,6 +2,7 @@ package com.example.todoapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements OnDialogCloseListner, PopupMenu.OnMenuItemClickListener {
 
@@ -64,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerViewTouchHelper(adapter));
         itemTouchHelper.attachToRecyclerView(mRecyclerview);
-
     }
+
 
     public void openMenu(View view) {
         PopupMenu menu = new PopupMenu(this, view);
@@ -86,8 +88,9 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                         showDeleteAllTasksDialog();
                         return true;
                     case R.id.menuItem1:
-                        // Faites quelque chose lorsque l'élément de menu 2 est sélectionné
-                        Log.d("TAG", "onMenuItemClick: item2");
+                        Intent Connectintent = new Intent(MainActivity.this, Connect.class);
+                        startActivity(Connectintent);
+
                         return true;
                     default:
                         return false;
