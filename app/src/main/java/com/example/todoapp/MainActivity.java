@@ -2,12 +2,18 @@ package com.example.todoapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +31,7 @@ import com.example.todoapp.Utils.DataBaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,11 +53,9 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         setContentView(R.layout.activity_main);
         mRecyclerview = findViewById(R.id.recyclerview);
         fab = findViewById(R.id.fab);
-        Button menuButton = findViewById(R.id.menuButton);
         myDB = new DataBaseHelper(MainActivity.this);
         mList = new ArrayList<>();
         adapter = new ToDoAdapter(myDB , MainActivity.this);
-
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerview.setAdapter(adapter);
@@ -66,6 +71,23 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         });
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerViewTouchHelper(adapter));
         itemTouchHelper.attachToRecyclerView(mRecyclerview);
+        setUpAlarm();
+    }
+
+
+    private void setUpAlarm() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 49);
+        calendar.set(Calendar.SECOND, 0);
+
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
 
@@ -80,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item1:
-//                        AddNewTask.newInstance().show(getSupportFragmentManager() , AddNewTask.TAG);
                         Intent intent = new Intent(MainActivity.this, About.class);
                         startActivity(intent);
                         return true;
@@ -88,9 +109,10 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                         showDeleteAllTasksDialog();
                         return true;
                     case R.id.menuItem1:
+
                         Intent Connectintent = new Intent(MainActivity.this, Connect.class);
                         startActivity(Connectintent);
-
+                        Log.d("TAG", "onMenuItemClick: item2");
                         return true;
                     default:
                         return false;
@@ -146,13 +168,13 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     }
     public void display(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Vous allez quitter l'application")
-                .setTitle("Attention !")
-                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+        builder.setMessage("You will exit the app")
+                .setTitle("Warning !")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         System.exit(1);
                     }
-                }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
