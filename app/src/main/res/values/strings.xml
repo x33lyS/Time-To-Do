@@ -2,4 +2,8 @@
     <string name="app_name">To Do App</string>
     <string name="to_do_tasks">To Do Tasks</string>
     <string name="todo">TODO</string>
+    <string name="channel_name" >Test name </string>
+    <string name="channel_description"> test description</string>
+    <string name="notification_title" >not name</string>
+    <string name="notification_text" >not text </string>
 </resources>
