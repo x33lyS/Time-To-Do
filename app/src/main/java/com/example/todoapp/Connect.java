@@ -96,7 +96,7 @@ public class Connect<DateTime> extends AppCompatActivity {
                     for (String k : key) {
                         // Add the data from the database to the mDescriptions list
                         descriptions.add(k + " : " + hashMap.get(k));
-                        Log.v(TAG, "Value is: " + k + " : " + hashMap.get(k));
+                        Log.v(TAG, "Value is: " + descriptions);
                     }
                 }
                 // Notify the adapter that the data has changed and the RecyclerView should be updated
@@ -123,7 +123,7 @@ public class Connect<DateTime> extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_layout, parent, false);
             return new ViewHolder(view);
         }
 
@@ -132,6 +132,7 @@ public class Connect<DateTime> extends AppCompatActivity {
             String description = mDescriptions.get(position);
             holder.descriptionTextView.setText(description);
         }
+
 
         @Override
         public int getItemCount() {
@@ -145,7 +146,7 @@ public class Connect<DateTime> extends AppCompatActivity {
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                descriptionTextView = itemView.findViewById(R.id.description_item);
+                descriptionTextView = itemView.findViewById(R.id.mcheckbox);
             }
         }
     }
