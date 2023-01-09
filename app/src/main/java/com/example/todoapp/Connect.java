@@ -136,7 +136,6 @@ public class Connect<DateTime> extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            Log.v(TAG, "mDescriptions.size() = " + mDescriptions.size());
             return mDescriptions.size();
         }
 
