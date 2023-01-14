@@ -33,7 +33,7 @@ public class About extends AppCompatActivity {
         Button back = findViewById(R.id.back);
         TextView text = findViewById(R.id.textView);
         TextView creator = findViewById(R.id.textView2);
-        String paragraph = "\"This is a simple to-do list app. It allows you to add, switch left to edit, and switch right to delete tasks. You can also mark tasks as complete and delete all task in one button click. ";
+        String paragraph = "\"This is a simple to-do list app. It allows you to add, switch left to edit, and switch right to delete tasks. You can also mark tasks as complete and delete all task in one button click. You can connect on your private database by writing your own password, careful your database have to exist";
         String creatorsText = "Creators\n" + "This app was created by: Florian Lejosne and Adam Haouzi. ";
         back.setOnClickListener(new View.OnClickListener() {
             @Override
