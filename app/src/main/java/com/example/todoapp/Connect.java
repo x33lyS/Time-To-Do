@@ -52,6 +52,7 @@ public class Connect<DateTime> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.connect);
+        String password = MainActivity.password;
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button back = findViewById(R.id.Connectback);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,8 +87,12 @@ public class Connect<DateTime> extends AppCompatActivity {
         descriptions = new ArrayList<>();
         adapter = new DescriptionAdapter(descriptions);
         recyclerView.setAdapter(adapter);
-
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
+    if (password.equals("1234")) {
+        database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
+    } else if (password.equals("4321")) {
+        database = FirebaseDatabase.getInstance("https://time-to-do2-default-rtdb.europe-west1.firebasedatabase.app/");
+    }
         DatabaseReference myRef = database.getReference("Tasks");
         // Lecture de la valeur unique à partir de la base de données
         myRef.addValueEventListener(new ValueEventListener() {

@@ -121,10 +121,10 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                                 .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         password = input.getText().toString();
-                                        if(password.equals("1234")){
+                                        if(password.equals("1234") || password.equals("4321")){
                                             Intent Connectintent = new Intent(MainActivity.this, Connect.class);
                                             startActivity(Connectintent);
-                                        }else {
+                                        } else {
                                             Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_SHORT).show();
                                         }
                                     }
