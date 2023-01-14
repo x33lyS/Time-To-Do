@@ -66,6 +66,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE_NAME , "ID=?" , new String[]{String.valueOf(id)});
     }
 
+    public void deleteAllTask(){
+        db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_NAME);
+    }
+
     public List<ToDoModel> getAllTasks(){
 
         db = this.getWritableDatabase();

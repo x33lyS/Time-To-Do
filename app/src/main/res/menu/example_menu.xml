@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    app:ignore="NamespaceTypo"
+    >
+    <item
+        android:id="@+id/menuItem1"
+        android:title="Connect"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/item2"
+        android:title="Delete All tasks"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/item1"
+        android:title="Help"
+        app:showAsAction="never" />
+
+</menu>

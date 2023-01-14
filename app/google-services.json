@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "734853191111",
+    "project_id": "timetodo-9a390",
+    "storage_bucket": "timetodo-9a390.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734853191111:android:9a167f077d913a5e05b5e2",
+        "android_client_info": {
+          "package_name": "com.example.todoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734853191111-521p8b88g7k4g71gig58tia27p27q481.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeSzttDxHq_BRwFVRK-PxpqZWZHX4KrcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734853191111-521p8b88g7k4g71gig58tia27p27q481.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
