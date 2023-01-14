@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> {
 
@@ -85,19 +86,28 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
         notifyItemRemoved(position);
     }
     public void deleteAllTasks() {
-        int i = mList.size() - 1;
-        while (i >= 0) {
-            ToDoModel item = mList.get(i);
-            myDB.deleteTask(item.getId());
-            mList.remove(i);
-            notifyItemRemoved(i);
-            // Décrémentez l'index i à chaque itération
-            i--;
+        String password = MainActivity.password;
+        if (Objects.equals(password, "")) {
+            int i = mList.size() - 1;
+            while (i >= 0) {
+                ToDoModel item = mList.get(i);
+                myDB.deleteTask(item.getId());
+                mList.remove(i);
+                notifyItemRemoved(i);
+                // Décrémentez l'index i à chaque itération
+                i--;
+            }
         }
-        DatabaseReference root = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app").getReference();
-        root.setValue(null);
-        Toast.makeText(getContext(),"All tasks deleted", Toast.LENGTH_SHORT).show();
-
+        if (password != null) {
+            if (password.equals("1234")) {
+                DatabaseReference root = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app").getReference();
+                root.setValue(null);
+            } else if (password.equals("4321")) {
+                DatabaseReference root = FirebaseDatabase.getInstance("https://time-to-do2-default-rtdb.europe-west1.firebasedatabase.app/").getReference();
+                root.setValue(null);
+            }
+            Toast.makeText(getContext(), "All tasks deleted", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

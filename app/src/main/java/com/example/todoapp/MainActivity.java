@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private DataBaseHelper myDB;
     private List<ToDoModel> mList;
     private ToDoAdapter adapter;
-    public static String password = "1234";
+    public static String password = "";
 
     @SuppressLint("MissingInflatedId")
     @Override

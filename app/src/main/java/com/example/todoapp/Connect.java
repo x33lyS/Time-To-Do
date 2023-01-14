@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.todoapp.Adapter.ToDoAdapter;
 import com.example.todoapp.Utils.DataBaseHelper;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +43,8 @@ public class Connect<DateTime> extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DescriptionAdapter adapter;
     private List<String> descriptions;
+    private FloatingActionButton fab;
+    private final String password = MainActivity.password;
 
 
     public static Connect newInstance() {
@@ -52,38 +55,25 @@ public class Connect<DateTime> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.connect);
-        String password = MainActivity.password;
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button back = findViewById(R.id.Connectback);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Connect.this, MainActivity.class);
                 startActivity(intent);
-                v.setOnTouchListener(new View.OnTouchListener() {
-                    @SuppressLint("ClickableViewAccessibility")
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        switch (motionEvent.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                // L'utilisateur appuie sur la vue, modifiez son apparence pour simuler un hover
-                                view.setTranslationX(10);
-                                return true;
-                            case MotionEvent.ACTION_UP:
-                                // L'utilisateur relâche la vue, restaurez son apparence originale
-                                view.setTranslationX(-10);
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
+                MainActivity.password = "";
             }
         });
 
-
+        fab = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddNewTask.newInstance().show(getSupportFragmentManager() , AddNewTask.TAG);
+            }
+        });
         descriptions = new ArrayList<>();
         adapter = new DescriptionAdapter(descriptions);
         recyclerView.setAdapter(adapter);
@@ -98,6 +88,7 @@ public class Connect<DateTime> extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                descriptions.clear();
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     Object description = childSnapshot.getValue();
                     HashMap hashMap = (HashMap) description;
@@ -105,11 +96,12 @@ public class Connect<DateTime> extends AppCompatActivity {
                     for (String k : key) {
                         // Add the data from the database to the mDescriptions list
                         descriptions.add(k + " : " + hashMap.get(k));
-                        Log.v(TAG, "Value is: " + descriptions);
+
                     }
                 }
                 // Notify the adapter that the data has changed and the RecyclerView should be updated
                 adapter.notifyDataSetChanged();
+                Collections.reverse(descriptions);
             }
 
             @Override
@@ -145,8 +137,13 @@ public class Connect<DateTime> extends AppCompatActivity {
                     public void onClick(View view) {
                         DatabaseReference taskRef = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app")
                                 .getReference("Tasks");
+                        if (password.equals("1234")) {
+                            taskRef = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app").getReference("Tasks");
+                        } else if (password.equals("4321")) {
+                            taskRef = FirebaseDatabase.getInstance("https://time-to-do2-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Tasks");
+                        }
                         taskRef.removeValue();
-                        mDescriptions.clear();
+                        descriptions.clear();
 
                     }
                 });

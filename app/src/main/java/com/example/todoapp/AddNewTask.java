@@ -38,11 +38,14 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class AddNewTask extends BottomSheetDialogFragment {
 
     public static final String TAG = "AddNewTask";
+    String password = MainActivity.password;
+
 
 
     //widgets
@@ -129,7 +132,9 @@ public class AddNewTask extends BottomSheetDialogFragment {
                    ToDoModel item = new ToDoModel();
                    item.setTask(text);
                    item.setStatus(0);
-                   myDb.insertTask(item);
+                    if (Objects.equals(password, "")) {
+                        myDb.insertTask(item);
+                    }
                 }
 
                dismiss();
@@ -144,26 +149,32 @@ public class AddNewTask extends BottomSheetDialogFragment {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("/dd-MM-yyyy /HH:mm:ss");
                 dateFormat.setTimeZone(timeZone);
                 String strDate = dateFormat.format(currentDate);
-
-                FirebaseDatabase database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
-                DatabaseReference myRef = database.getReference("Tasks" + strDate + " ");
-                myRef.setValue(mEditText.getText().toString());
-                Toast.makeText(getContext(),"Task add", Toast.LENGTH_SHORT).show();
-
-
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String value = dataSnapshot.getValue(String.class);
-                        Log.d(TAG, "Value is: " + value);
-
+                if (password != null) {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
+                    if (password.equals("1234")) {
+                        database = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app");
+                    } else if (password.equals("4321")) {
+                        database = FirebaseDatabase.getInstance("https://time-to-do2-default-rtdb.europe-west1.firebasedatabase.app/");
                     }
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        Log.w(TAG, "Failed to read value.", error.toException());
-                    }
-                });
+                    DatabaseReference myRef = database.getReference("Tasks" + strDate + " ");
+                    myRef.setValue(mEditText.getText().toString());
+                    Toast.makeText(getContext(), "Task add", Toast.LENGTH_SHORT).show();
 
+
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String value = dataSnapshot.getValue(String.class);
+                            Log.d(TAG, "Value is: " + value);
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            Log.w(TAG, "Failed to read value.", error.toException());
+                        }
+                    });
+                }
             }
         });
     }

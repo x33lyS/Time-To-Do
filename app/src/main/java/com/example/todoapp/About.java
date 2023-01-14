@@ -40,25 +40,7 @@ public class About extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(About.this, MainActivity.class);
                 startActivity(intent);
-                v.setOnTouchListener(new View.OnTouchListener() {
-                    @SuppressLint("ClickableViewAccessibility")
-                    @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
-                        switch (motionEvent.getAction()) {
-                            case MotionEvent.ACTION_DOWN:
-                                // L'utilisateur appuie sur la vue, modifiez son apparence pour simuler un hover
-                                view.setTranslationX(10);
-                                return true;
-                            case MotionEvent.ACTION_UP:
-                                // L'utilisateur relâche la vue, restaurez son apparence originale
-                                view.setTranslationX(-10);
-                                return true;
-                            default:
-                                return false;
-                        }
-                    }
-                });
-
+                MainActivity.password = "";
 
             }
         });
