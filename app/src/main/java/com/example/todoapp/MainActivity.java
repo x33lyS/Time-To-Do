@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private DataBaseHelper myDB;
     private List<ToDoModel> mList;
     private ToDoAdapter adapter;
-    private boolean alarmSet = false;
-
+    public static String password = "1234";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                                 .setTitle("Write your password")
                                 .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        String password = input.getText().toString();
+                                        password = input.getText().toString();
                                         if(password.equals("1234")){
                                             Intent Connectintent = new Intent(MainActivity.this, Connect.class);
                                             startActivity(Connectintent);
