@@ -137,28 +137,32 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         });
     }
     private void showDeleteAllTasksDialog() {
-        // Créez un nouvel AlertDialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Définissez le titre et le message du Dialog
-        builder.setTitle("Delete all tasks")
-                .setMessage("Are you sure you want to delete all tasks?")
-                // Ajoutez un bouton "Oui" qui appelle la méthode deleteAllTasks
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        adapter.deleteAllTasks();
-                    }
-                })
-                // Ajoutez un bouton "Non" qui ferme simplement le Dialog
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Ne faites rien, simplement fermez le Dialog
-                    }
-                });
-        // Créez et affichez le Dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        if (adapter.getItemCount() == 0) {
+            Toast.makeText(this, "No tasks to delete", Toast.LENGTH_SHORT).show();
+        } else {
+            // Créez un nouvel AlertDialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            // Définissez le titre et le message du Dialog
+            builder.setTitle("Delete all tasks")
+                    .setMessage("Are you sure you want to delete all tasks?")
+                    // Ajoutez un bouton "Oui" qui appelle la méthode deleteAllTasks
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            adapter.deleteAllTasks();
+                        }
+                    })
+                    // Ajoutez un bouton "Non" qui ferme simplement le Dialog
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Ne faites rien, simplement fermez le Dialog
+                        }
+                    });
+            // Créez et affichez le Dialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
 
