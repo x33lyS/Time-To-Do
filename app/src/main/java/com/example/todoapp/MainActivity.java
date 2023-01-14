@@ -16,14 +16,18 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.example.todoapp.Adapter.ToDoAdapter;
 import com.example.todoapp.Model.ToDoModel;
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private DataBaseHelper myDB;
     private List<ToDoModel> mList;
     private ToDoAdapter adapter;
+    private boolean alarmSet = false;
 
 
     @SuppressLint("MissingInflatedId")
@@ -62,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         mList = myDB.getAllTasks();
         Collections.reverse(mList);
         adapter.setTasks(mList);
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private void setUpAlarm() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
-        calendar.set(Calendar.MINUTE, 49);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
+        calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 0);
 
         Intent intent = new Intent(this, AlarmReceiver.class);
@@ -109,17 +113,29 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                         showDeleteAllTasksDialog();
                         return true;
                     case R.id.menuItem1:
-
-                        Intent Connectintent = new Intent(MainActivity.this, Connect.class);
-                        startActivity(Connectintent);
-                        Log.d("TAG", "onMenuItemClick: item2");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        final EditText input = new EditText(MainActivity.this);
+                        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        builder.setView(input);
+                        builder.setMessage("Password")
+                                .setTitle("Write your password")
+                                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        String password = input.getText().toString();
+                                        if(password.equals("1234")){
+                                            Intent Connectintent = new Intent(MainActivity.this, Connect.class);
+                                            startActivity(Connectintent);
+                                        }else {
+                                            Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }).show();
                         return true;
                     default:
                         return false;
                 }
             }
         });
-
     }
     private void showDeleteAllTasksDialog() {
         // Créez un nouvel AlertDialog
