@@ -6,7 +6,7 @@
     <item
         android:id="@+id/menuItem1"
         android:title="Connect"
-        />
+        app:showAsAction="never" />
     <item
         android:id="@+id/item2"
         android:title="Delete All tasks"

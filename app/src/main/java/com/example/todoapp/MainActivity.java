@@ -3,6 +3,7 @@ package com.example.todoapp;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements OnDialogCloseListner, PopupMenu.OnMenuItemClickListener {
 
@@ -76,8 +78,8 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private void setUpAlarm() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 16);
-        calendar.set(Calendar.MINUTE, 56);
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 49);
         calendar.set(Calendar.SECOND, 0);
 
         Intent intent = new Intent(this, AlarmReceiver.class);
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pendingIntent);
     }
+
 
     public void openMenu(View view) {
         PopupMenu menu = new PopupMenu(this, view);
@@ -106,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
                         showDeleteAllTasksDialog();
                         return true;
                     case R.id.menuItem1:
+
+                        Intent Connectintent = new Intent(MainActivity.this, Connect.class);
+                        startActivity(Connectintent);
                         Log.d("TAG", "onMenuItemClick: item2");
                         return true;
                     default:
@@ -162,13 +168,13 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     }
     public void display(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Vous allez quitter l'application")
-                .setTitle("Attention !")
-                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+        builder.setMessage("You will exit the app")
+                .setTitle("Warning !")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         System.exit(1);
                     }
-                }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
