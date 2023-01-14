@@ -3,6 +3,7 @@ package com.example.todoapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,8 +18,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.todoapp.Adapter.ToDoAdapter;
+import com.example.todoapp.Utils.DataBaseHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +31,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +42,6 @@ public class Connect<DateTime> extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DescriptionAdapter adapter;
     private List<String> descriptions;
-
 
 
     public static Connect newInstance() {
@@ -111,8 +115,10 @@ public class Connect<DateTime> extends AppCompatActivity {
 
 
     }
+
     public void show(FragmentManager supportFragmentManager, String tag) {
     }
+
     public class DescriptionAdapter extends RecyclerView.Adapter<DescriptionAdapter.ViewHolder> {
 
         private List<String> mDescriptions;
@@ -124,6 +130,28 @@ public class Connect<DateTime> extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_layout, parent, false);
+
+            if (parent.getContext() instanceof Connect) {
+                Button button = new Button(parent.getContext());
+                button.setText("DEL");
+                // Add click listener to the button
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DatabaseReference taskRef = FirebaseDatabase.getInstance("https://timetodo-9a390-default-rtdb.europe-west1.firebasedatabase.app")
+                                .getReference("Tasks");
+                        taskRef.removeValue();
+                        mDescriptions.clear();
+
+                    }
+                });
+                RelativeLayout layout = view.findViewById(R.id.relative_layout);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(150, 100);
+                params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                params.addRule(RelativeLayout.ALIGN_PARENT_END);
+                button.setLayoutParams(params);
+                layout.addView(button);
+            }
             return new ViewHolder(view);
         }
 
