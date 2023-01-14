@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private void setUpAlarm() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
-        calendar.set(Calendar.MINUTE, 45);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
+        calendar.set(Calendar.MINUTE, 56);
         calendar.set(Calendar.SECOND, 0);
 
         Intent intent = new Intent(this, AlarmReceiver.class);
