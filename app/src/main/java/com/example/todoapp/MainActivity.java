@@ -17,8 +17,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +32,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todoapp.Adapter.ToDoAdapter;
@@ -49,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     private List<ToDoModel> mList;
     private ToDoAdapter adapter;
     public static String password = "";
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
         itemTouchHelper.attachToRecyclerView(mRecyclerview);
         setUpAlarm();
     }
-
 
     private void setUpAlarm() {
         Calendar calendar = Calendar.getInstance();
@@ -205,4 +211,5 @@ public class MainActivity extends AppCompatActivity implements OnDialogCloseList
     public boolean onMenuItemClick(MenuItem menuItem) {
         return false;
     }
+
 }

@@ -2,6 +2,9 @@ package com.example.todoapp.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +27,8 @@ import com.example.todoapp.Utils.DataBaseHelper;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -32,7 +38,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
     private MainActivity activity;
     private DataBaseHelper myDB;
 
-    public ToDoAdapter(DataBaseHelper myDB , MainActivity activity){
+    public ToDoAdapter(DataBaseHelper myDB , MainActivity activity) {
         this.activity = activity;
         this.myDB = myDB;
     }
@@ -129,6 +135,15 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
+        if (mList.size() == 0) {
+            TextView noTasks = (TextView) activity.findViewById(R.id.textView3);
+            noTasks.setText("No tasks");
+            noTasks.setVisibility(View.VISIBLE);
+        }else{
+            Toast.makeText(getContext(), "Tasks", Toast.LENGTH_SHORT).show();
+            TextView noTasks = (TextView) activity.findViewById(R.id.textView3);
+            noTasks.setVisibility(View.INVISIBLE);
+        }
         return mList.size();
     }
 
