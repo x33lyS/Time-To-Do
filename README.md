@@ -14,7 +14,7 @@ Liste des fonctionnalités implémentées :
 - [x] La pertinence d'utilisation des layouts (L'application doit être responsive et supporter: portrait/paysage et tablette)
 - [x] L'utilisation de d’événement améliorant l'ux (pex: swipe). Préciser : Utilisation d'un swipe left and right
 - [x] La réalisation de composant graphique custom (Paint 2D, Calendrier,...) Préciser : Logo de l'application + bouton add delete ...
-- [ ] Les taches en background (codage du démarrage d'un thread)
+- [x] Les taches en background (codage du démarrage d'un thread)
 - [x] Le codage d'un menu (contextuel ou non, utilisation d'un menu en resource XML)
 - [x] L'application de pattern (Reactive programming, singleton, MVC,...) Liste : MVC, Singleton, Reactive programming
 
