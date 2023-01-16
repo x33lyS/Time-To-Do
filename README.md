@@ -3,19 +3,20 @@
 
 #### Features for evaluating:
 Liste des fonctionnalités implémentées :
-- [ ] Utilisation de l'Api Preference
-- [ ] Ecriture/lecture dans un Fichier
-- [ ] Utilisation de SQLite
-- [ ] Utilisation de Firebase
-- [ ] Nombre d'activités ou fragment supérieur ou égal à 3
-- [ ] Gestion du bouton Back (message pour confirmer que l'on veut réellement quitter l'application)
-- [ ] L'affichage d'une liste avec son adapter
-- [ ] L'affichage d'une liste avec un custom adapter (avec gestion d’événement)
-- [ ] La pertinence d'utilisation des layouts (L'application doit être responsive et supporter: portrait/paysage et tablette)
-- [ ] L'utilisation de d’événement améliorant l'ux (pex: swipe). Préciser : Utilisation d'un swipe left and right
-- [ ] La réalisation de composant graphique custom (Paint 2D, Calendrier,...) Préciser :
-- [ ] Le codage d'un menu (contextuel ou non, utilisation d'un menu en resource XML)
-- [ ] L'application de pattern (Reactive programming, singleton, MVC,...)
+- [x] Utilisation de l'Api Preference
+- [x] Ecriture/lecture dans un Fichier
+- [x] Utilisation de SQLite
+- [x] Utilisation de Firebase
+- [x] Nombre d'activités ou fragment supérieur ou égal à 3
+- [x] Gestion du bouton Back (message pour confirmer que l'on veut réellement quitter l'application)
+- [x] L'affichage d'une liste avec son adapter
+- [x] L'affichage d'une liste avec un custom adapter (avec gestion d’événement)
+- [x] La pertinence d'utilisation des layouts (L'application doit être responsive et supporter: portrait/paysage et tablette)
+- [x] L'utilisation de d’événement améliorant l'ux (pex: swipe). Préciser : Utilisation d'un swipe left and right
+- [x] La réalisation de composant graphique custom (Paint 2D, Calendrier,...) Préciser : Logo de l'application + bouton add delete ...
+- [ ] Les taches en background (codage du démarrage d'un thread)
+- [x] Le codage d'un menu (contextuel ou non, utilisation d'un menu en resource XML)
+- [x] L'application de pattern (Reactive programming, singleton, MVC,...)
 
 #### Features
 - Swipe right to delete a task and left to edit it on the main page
