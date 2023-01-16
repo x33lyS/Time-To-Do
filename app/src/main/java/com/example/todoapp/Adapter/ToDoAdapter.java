@@ -137,7 +137,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
     public int getItemCount() {
         if (mList.size() == 0) {
             TextView noTasks = (TextView) activity.findViewById(R.id.textView3);
-            noTasks.setText("No tasks");
+            noTasks.setText("You have no tasks");
             noTasks.setVisibility(View.VISIBLE);
         }else{
             Toast.makeText(getContext(), "Tasks", Toast.LENGTH_SHORT).show();
