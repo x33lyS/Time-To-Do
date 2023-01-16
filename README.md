@@ -18,7 +18,7 @@
 To use Time To Do, simply open the app and add tasks by hitting the "+" button and typing them into the designated field. Swipe left or right on a task to edit or delete it, you also can mark task as complete. Use the menu to access additional features such as "Delete All" and "Connect." or "Help" for more information.
 
 #### Conclusion
-Time To Do is a convenient and user-friendly task management app that helps users stay organized and on top of their tasks. With features such as swiping to delete and edit tasks, a connected SQLite database, and daily reminder notifications, Time To Do is a valuable tool for anyone looking to improve their productivity.
+Time To Do is a convenient and user-friendly task management app that helps users stay organized and on top of their tasks. With features such as swiping to delete and edit tasks, a connected SQLite database and 2 firebase databases, and daily reminder notifications, Time To Do is a valuable tool for anyone looking to improve their productivity.
 
 #### Authors
 - [x33lyS](https://github.com/x33lyS)
