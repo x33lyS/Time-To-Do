@@ -77,7 +77,7 @@ class MyTask extends AsyncTask<Void, Void, String> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "Opération terminée";
+        return "Thread finished";
     }
 
     @Override
