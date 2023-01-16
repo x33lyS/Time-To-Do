@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class About extends AppCompatActivity {
 
@@ -29,6 +31,8 @@ public class About extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"})
+        Button thread = findViewById(R.id.thread);
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         Button back = findViewById(R.id.back);
         TextView text = findViewById(R.id.textView);
@@ -44,6 +48,12 @@ public class About extends AppCompatActivity {
 
             }
         });
+        thread.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MyTask(About.this).execute();
+            }
+        });
         text.setText(paragraph);
         creator.setText(creatorsText);
     }
@@ -51,3 +61,29 @@ public class About extends AppCompatActivity {
     public void show(FragmentManager supportFragmentManager, String tag) {
     }
 }
+
+class MyTask extends AsyncTask<Void, Void, String> {
+    @SuppressLint("StaticFieldLeak")
+    private final About activity;
+
+    MyTask(About activity) {
+        this.activity = activity;
+    }
+
+    @Override
+    protected String doInBackground(Void... voids) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "Opération terminée";
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        Toast.makeText(activity , result, Toast.LENGTH_SHORT).show();
+    }
+}
+
+
