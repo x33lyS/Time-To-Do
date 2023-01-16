@@ -34,7 +34,7 @@
             android:id="@+id/thread"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="START THREAD" />
 
         <TextView
             android:id="@+id/textView2"
